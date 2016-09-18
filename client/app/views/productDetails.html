@@ -1,0 +1,43 @@
+<section flex layout="column">
+    <md-card ng-if="!isSmallScreen">
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-display-1">{{selectedProduct.name}}</span>
+            </md-card-title-text>
+            <md-card-title-media>
+                <div class="md-media-lg">
+                    <img  check-image ng-src="{{getProductImageUrl(selectedProduct, '-M')}}"/>
+                </div>
+            </md-card-title-media>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="start center">
+          <md-button class="md-warn" ng-click="deleteSelectedProduct(selectedProduct)">Eliminar</md-button>
+          <md-button class="md-primary" ng-click="saveSelectedProduct()">Guardar</md-button>
+        </md-card-actions>
+    </md-card>
+    <!-- <div flex ng-include="'views/productSummary.html'"></div>   -->
+    <md-tabs flex md-border-bottom md-center-tabs>
+        <md-tab>
+            <md-tab-label>Detalles</md-tab-label>
+            <md-tab-body>
+                <div flex ng-include="'views/productSummary.html'"></div>  
+            </md-tab-body>           
+        </md-tab>
+        <md-tab label="Precios">
+            <md-tab-body>
+                <div flex ng-include="'views/productPrices.html'"></div>  
+            </md-tab-body> 
+        </md-tab>
+        <md-tab label="Ubicaciones">
+            <md-tab-body>
+                <div flex ng-include="'views/productLocations.html'"></div>  
+            </md-tab-body>          
+        </md-tab>
+        <md-tab label="Imagen">
+            <md-content layout-align="space-around center" layout="row" layout-margin>
+                <img ng-if="isSmallScreen" check-image ng-src="{{getProductImageUrl(selectedProduct, '-M')}}"/>
+                <img ng-if="!isSmallScreen" check-image ng-src="{{getProductImageUrl(selectedProduct, '-L')}}"/>
+            </md-content>
+        </md-tab>
+    </md-tabs>
+</section>

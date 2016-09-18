@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var price = new Schema({
+	description: String,
 	type: String,
 	value: Number
 });
@@ -40,6 +41,7 @@ var productSchema = new Schema({
         type: price
     },
     locations: [location],
+	price: price,
 	prices: [price],
 	properties: {}
 });

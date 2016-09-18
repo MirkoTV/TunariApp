@@ -31,9 +31,9 @@ var all = {
 		},
 		{
 			name: "Escritorio",
-			view: "views/desktopMaterialDetails.html"
+//			view: "views/desktopMaterialDetails.html"
 		}
-	],
+	],	
 	defaultProductProperties: {
 		Default: {
 			provider: "Tunari",

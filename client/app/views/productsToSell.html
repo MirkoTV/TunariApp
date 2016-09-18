@@ -1,0 +1,58 @@
+<div ng-include="'views/productSearchBox.html'"></div>
+      
+<md-list class="reveal-animation" ng-if="!isLoading || products.length > 0" flex>
+    <div ng-repeat="product in products">
+        <md-list-item md-swipe-left="stepDownQuantity(product, $event)" 
+            md-swipe-right="stepUpQuantity(product, $event)" 
+            ng-click="addQuantity(product)" 
+            class="md-3-line" ng-click="null" layout="row" layout-wrap>
+            <div flex="30">
+                <img check-image ng-click="openImageModal(product, $event)" ng-src="{{getProductImageUrl(product, '-S')}}" 
+                    class="md-avatar product-image"/>
+            </div>
+            <div flex="30"class="md-list-item-text"  layout="column">
+                <h3>{{ product.name }}</h3>
+                <h4 layout="row" layout-align="start center">
+                    <ng-md-icon flex style="fill: #777" icon="attach_money" size="17"></ng-md-icon>
+                    <p flex>{{product.prices[0].value}} Bs.</p>
+                </h4>
+                <h4 layout="row layout-align="start center">
+                    <ng-md-icon flex style="fill: #777" icon="store" size="17"></ng-md-icon>
+                    <p flex>{{product.quantity}}</p>
+                </h4>
+            </div>
+            <md-card-actions flex="40" layout="row" layout-align="end center" layout-wrap>
+                <md-button ng-init="product.quantityToSell=0" ng-click="openQuantityModal(product, $event)" 
+                        class="md-fab md-mini md-primary" aria-label="Add to cart">
+                    {{product.quantityToSell}}
+                </md-button>
+                <md-button ng-click="addToCart(product, $event)" class="md-fab md-mini md-primary" 
+                    aria-label="Add to cart">
+                  <ng-md-icon style="fill: #fff" class="fab-button-icon-sm"
+                        icon="add_shopping_cart" size="30" aria-label="addShoppingCart">
+                  </ng-md-icon> 
+                </md-button>
+            </md-card-actions>
+        </md-list-item>
+        <md-divider ></md-divider>
+    </div>
+</md-list>   
+
+<section ng-if="!isLoading" flex layout="row" layout-align="center center">
+    <md-button ng-click="search()">Mostrar mas!</md-button>
+</section>
+
+<div ng-if="isLoading" flex layout="row" layout-align="space-around center" layout-margin>
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>   
+<div class="reveal-animation" ng-if="products.length == 0 && !isLoading" layout="row" 
+    layout-margin layout-align="space-around center">
+    <h4 class="md-body-2">
+        No hay productos para la busqueda "<b>{{tags}}</b>". 
+        Hagamos otra busqueda! 
+    </h4>
+</div> 
+
+
+<md-list-item>
+</md-list-item>

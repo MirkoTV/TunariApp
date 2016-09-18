@@ -9,8 +9,8 @@
  */
 angular.module('tunariApp')
   .controller('ShopCtrl', 
-              ['$scope', '$mdSidenav', '$mdDialog', '$mdToast', '$mdBottomSheet', '$mdMedia', '$location', '$uibModal', 'Products', 'ServerData', 'SearchInfo', 'SellingItemInfo','Messages', 'Notifier',  
-              function ($scope, $mdSidenav, $mdDialog, $mdToast, $mdBottomSheet, $mdMedia, $location, $uibModal, Products, ServerData, SearchInfo, SellingItemInfo, Messages, Notifier) {    
+              ['$scope', '$mdSidenav', '$mdDialog', '$mdToast', '$mdBottomSheet', '$mdMedia', '$location', '$uibModal', 'Products', 'ServerData', 'ProductInfo', 'SearchInfo', 'SellingItemInfo','Messages', 'Notifier',  
+              function ($scope, $mdSidenav, $mdDialog, $mdToast, $mdBottomSheet, $mdMedia, $location, $uibModal, Products, ServerData, ProductInfo, SearchInfo, SellingItemInfo, Messages, Notifier) {    
 
     $scope.layout.title = 'Productos';
     $scope.layout.backupTitle = 'Productos';    
@@ -18,25 +18,31 @@ angular.module('tunariApp')
     $scope.layout.bottomFabButtonIconTooltip = 'Ver el Carrito';   
 
     $scope.serverData = ServerData;
+    $scope.products = [];
     $scope.tags = SearchInfo.getTags();
     
     $scope.pagination = {
-        current: 1,
+        current: 0,
         itemsPerPage: 30
     };
 
     $scope.isLoading = true;
 
-    $scope.search = function(page){
+    $scope.search = function(restart){
         $scope.isLoading = true;
+        $scope.products = restart ? [] : $scope.products; 
+
+
+        $scope.pagination.current = restart 
+            ? 1
+            : $scope.pagination.current + 1;
         var query = $scope.tags ? {tags: $scope.tags} : {};
-        query.page = page;
+        query.page = $scope.pagination.current;
         query.queryLimit = $scope.pagination.itemsPerPage;
 
-        Products.getList(query).then(function(products) {
-            $scope.products = products;
-            $scope.totalProducts = products.meta.count; 
-            $scope.pagination.current = page;    
+        Products.getList(query).then(function(products) { console.log(products)
+            $scope.products = $scope.products.concat(products);
+            $scope.totalProducts = products.meta.count;    
             SearchInfo.setTags($scope.tags);
             $scope.isLoading = false;
         });
@@ -130,19 +136,9 @@ angular.module('tunariApp')
         $scope.$parent.showToast('Agregaste un producto al carrito!', product.name);        
     }
 
-    $scope.getProductImageUrl = function(product) {
-        return  $scope.serverData.urlImages + "/" + 
-                product.category + "/" + 
-                (product.properties.type || '' )+ "/" +
-                product.name + "-M.jpg";
-    }
-    
-    $scope.getSmallProductImageUrl = function(product) {
-        return  $scope.serverData.urlImages + "/" + 
-                product.category + "/" + 
-                (product.properties.type || '' )+ "/" +
-                product.name + "-S.jpg"
-    }
+    $scope.getProductImageUrl = function(product, sufix) {
+        return  ProductInfo.getProductImageUrl(product, sufix);
+    }  
 
     $scope.addProduct = function(product) {
         var addProductModal = $uibModal.open({
@@ -175,7 +171,7 @@ angular.module('tunariApp')
     }            
     
     $scope.queryProductSearchNames = function(query) {        
-        if (query && query !== "") {
+        /*if (query && query !== "") {
             console.log("asdfsdf")
             var query = query ? {tags:query} : {};                
             query.properties = "name";
@@ -192,7 +188,8 @@ angular.module('tunariApp')
         }
         else {
             return [];
-        }
+        }*/
+        return SearchInfo.getProductNames(query);
 
     };
 

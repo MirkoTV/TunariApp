@@ -1,0 +1,17 @@
+<!-- Small Screens -->
+<md-content flex layout="row" hide-gt-sm class="background">
+    <div flex ng-include="'views/products.html'"></div>  
+</md-content>
+
+<!-- Medium Screens -->
+<md-content flex layout="row" hide-xs hide-sm show-gt-sm class="background">
+    <md-sidenav flex="30"  md-is-locked-open="$mdMedia('gt-xs')"  style="z-index: 0;"class="md-whiteframe-z2 background" >
+        <div flex ng-include="'views/products.html'"></div>
+    </md-sidenav>
+    <product-details flex="70" layout-margin selected-product="selectedProduct" server-config="config"
+    	 delete-selected-product="deleteSelectedProduct(product)"
+         save-selected-product="saveSelectedProduct()"
+    	 layout="row">
+	</product-details>
+    <!-- <div flex="70" layout="row" ng-include="'views/productDetails.html'"></div>     -->
+</md-content>

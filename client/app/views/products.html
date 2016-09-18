@@ -1,0 +1,38 @@
+<div ng-include="'views/productSearchBox.html'"></div>
+        
+<md-list class="reveal-animation" ng-if="!isLoading || products.length > 0" flex>
+    <div ng-repeat="product in products">
+        <md-list-item md-swipe-left="stepDownQuantity(product, $event)" 
+            md-swipe-right="stepUpQuantity(product, $event)" 
+            ng-click="selectProduct(product, $event)" 
+            class="md-3-line" ng-click="null" layout="row" layout-wrap>
+            <div flex="30">
+                <img check-image ng-click="openImageModal(product, $event)" ng-src="{{getProductImageUrl(product, '-S')}}" 
+                    class="md-avatar product-image"/>
+            </div>
+            <div flex="70"class="md-list-item-text" layout-align="start center" 
+                layout="column">
+                <h3>{{ product.name }}</h3>                
+            </div>
+            <md-checkbox class="md-secondary" ng-model="product.selected" aria-label="selected"></md-checkbox>
+        </md-list-item>
+        <md-divider ></md-divider>
+    </div>    
+</md-list> 
+
+<div ng-if="isLoading" flex layout="row" layout-align="space-around center" layout-margin>
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>   
+<div class="reveal-animation" ng-if="products.length == 0 && !isLoading" layout="row" 
+    layout-margin layout-align="space-around center">
+    <h4 class="md-body-2">
+        No hay productos para la busqueda "<b>{{tags}}</b>". 
+        Hagamos otra busqueda! 
+    </h4>
+</div> 
+<section ng-if="!isLoading" flex layout="row" layout-align="center center">
+    <md-button ng-click="search()">Mostrar mas!</md-button>
+</section>
+
+<md-list-item>
+</md-list-item>

@@ -1,0 +1,17 @@
+<md-dialog  ng-cloak class="background">
+	 <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>{{ selectedProduct.name}}</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <ng-md-icon class="icon" style="fill: #fff" icon="close" size="20" aria-label="call">
+                </ng-md-icon> 
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-content layout="row" flex class="background" ng-cloak>
+		<!-- <div flex layout="row" ng-include="'views/productDetails.html'"></div> -->
+        <product-details flex selected-product="selectedProduct" server-config="config" layout="row">
+        </product-details>
+	</md-content>
+</md-dialog>

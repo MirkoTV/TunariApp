@@ -20,7 +20,7 @@ angular.module('tunariApp')
 
     $scope.cancel = function () {
 	  	  $mdDialog.cancel($scope.selectedClient);
-	  }; 	
+    }; 	
 
     $scope.getTotal = function() {
         var result = _.sum($scope.sellingItems, function(sellingItem){

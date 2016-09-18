@@ -1,4 +1,45 @@
-<div>
+<section flex="100" flex-gt-sm="50" layout="column">
+  <md-input-container flex>                  
+      <label>Categoria</label>
+    <md-select  ng-model="selectedProduct.category" aria-label="castegory">
+      <md-option ng-repeat="category in categories" value="{{category}}">
+        {{category}}
+      </md-option>
+        </md-select>
+  </md-input-container>     
+  <md-input-container flex>
+      <label>Nombre</label>
+      <input ng-model="selectedProduct.name">
+  </md-input-container>
+  <md-input-container flex>
+      <label>Precio de compra (Bs.)</label>
+      <input ng-model="selectedProduct.buyingPrice.value">
+  </md-input-container>
+  <md-input-container flex>
+      <label>Proveedor</label>
+      <input ng-model="selectedProduct.provider">
+  </md-input-container>   
+</section>
+<section flex="100" flex-gt-sm="50" layout="column">
+  <md-input-container flex>
+      <label>Cantidad por paquete</label>
+      <input ng-model="selectedProduct.properties.quantityPerPackage">
+  </md-input-container>
+  <md-input-container flex>
+      <label>Cantidad en el deposito (Unidades).</label>
+      <input ng-model="selectedProduct.quantity">
+  </md-input-container>
+  <md-input-container flex>
+      <label>Ubicacion en la tienda</label>
+      <input ng-model="selectedProduct.locations[0].value">
+  </md-input-container>
+  <md-input-container flex>
+      <!-- <label>Tipo</label>
+      <input ng-model="selectedProduct.properties.type"> -->
+  </md-input-container>
+</section>
+
+<!-- <div>
     <div class="row">
         <div class="col-xs-12 col-md-4">
             <div class="thumbnail">
@@ -242,4 +283,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

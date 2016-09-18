@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Directive: productdetails', function () {
+describe('Directive: productDetails', function () {
 
   // load the directive's module
   beforeEach(module('clientApp'));
@@ -13,8 +13,8 @@ describe('Directive: productdetails', function () {
   }));
 
   it('should make hidden element visible', inject(function ($compile) {
-    element = angular.element('<productdetails></productdetails>');
+    element = angular.element('<product-details></product-details>');
     element = $compile(element)(scope);
-    expect(element.text()).toBe('this is the productdetails directive');
+    expect(element.text()).toBe('this is the productDetails directive');
   }));
 });

@@ -1,0 +1,50 @@
+<md-dialog aria-label="NewProduct">
+	<form name="newProductForm" ng-submit="newProductForm.$valid && createProduct()" novalidate>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				  <h2>Nuevo Producto</h2>
+				  <span flex></span>
+				  <md-button class="md-icon-button" ng-click="cancel()">
+				    <ng-md-icon class="icon" style="fill: #fff" icon="close" size="20" aria-label="call"></ng-md-icon> 
+				  </md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content layout="column" layout-margin>   
+			<div class="md-headline">Nuevo producto</div>
+			<span></span>
+			<md-input-container>
+				<label>Nombre</label>
+				<input ng-model="product.name" name="name" md-autofocus autocomplete="off" required uppercase>
+				<div ng-messages="newProductForm.name.$error">
+					<div ng-message="required">La precio es requerido.</div>					
+				</div>
+			</md-input-container>
+			<section flex layout="row">
+				<md-input-container>
+					<label>Precio Regular</label>
+					<input ng-model="product.price.value" name="price" autocomplete="off" type="number" required>
+					<div ng-messages="newProductForm.price.$error">
+						<div ng-message="required">El precio es requerido.</div>					
+					</div>
+				</md-input-container>
+				<md-input-container flex>
+					<label>Tipo de Precio</label>
+					<md-select ng-model="product.price.type" aria-label="newPrice">
+						<md-option ng-repeat="priceType in priceTypes" value="{{priceType}}">
+							{{priceType}}
+						</md-option>
+			        </md-select>
+				</md-input-container>
+			</section>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<span flex></span>
+			<md-button class="md-raised md-warn" type="button" ng-click="cancel()" >
+				Cancelar
+			</md-button>
+			<md-button class="md-raised md-primary" type="submit" style="margin-right:20px;" >
+				Agregar!
+			</md-button>
+		</md-dialog-actions>
+	</form>
+</md-dialog>

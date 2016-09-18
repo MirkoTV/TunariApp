@@ -1,0 +1,22 @@
+<form flex layout="row" ng-submit="search(true)" layout-margin>
+    <md-autocomplete     
+    flex           
+    md-search-text="productSearchText"           
+    md-items="productName in queryProductSearchNames(productSearchText)"
+    md-selected-item-change="setTags(productName)"
+    md-search-text-change="setTags(productSearchText)"
+    md-item-text="productName"                        
+    placeholder="Busca Algun Producto!">
+        <md-item-template>
+          <span md-highlight-text="productSearchText" md-highlight-flags="^i">{{productName}}</span>
+        </md-item-template>
+        <md-not-found>
+          No hay ningun producto "{{productSearchText}}".
+        </md-not-found>
+    </md-autocomplete>
+    <md-button  type="submit" class="md-fab md-mini search-button" 
+        aria-label="Search">
+        <ng-md-icon options='{"rotation": "none"}' class="fab-button-icon-sm"
+            icon="search" style="fill: #fff" size="30"></ng-md-icon>   
+    </md-button>
+</form>

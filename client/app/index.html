@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="bower_components/nya-bootstrap-select/dist/css/nya-bs-select.css" />
     <link rel="stylesheet" href="bower_components/angular-notify/dist/angular-notify.css" />
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+    <link rel="stylesheet" href="bower_components/angular-material-icons/angular-material-icons.css" />
     <!-- endbower -->
     
     <link rel="stylesheet" href="styles/sandstone.css">
@@ -21,6 +22,7 @@
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/productsearch.css">
     <link rel="stylesheet" href="styles/shoppingcart.css">
+    <link rel="stylesheet" href="styles/productDetails.css">    
     <link rel="stylesheet" href="styles/typeahead.css">      
     <link rel="stylesheet" href="styles/clientsearch.css">
     <link rel="stylesheet" href="styles/clientsamples.css">
@@ -36,7 +38,7 @@
         <md-toolbar  md-scroll-shrink layout="column">
             <div class="md-toolbar-tools" md- layout-align="space-between center" layout-wrap>
                 <md-button ng-click="toggleSidenav('sideNav')" aria-label="Menu">
-                    <ng-md-icon icon="menu" style="fill: #fff" size="40"></ng-md-icon>                 
+                    <ng-md-icon icon="menu" class="fab-button-icon" style="fill: #fff" size="40"></ng-md-icon>
                 </md-button>                
                 <h3>
                     <span>{{layout.title}}</span>
@@ -45,7 +47,7 @@
                 <md-button  ng-click="toogleRecording()" class="md-fab md-mini md-hue-2 " 
                     ng-class="isRecording ? 'md-accent' : 'md-primary'"
                     aria-label="Mic">
-                    <ng-md-icon options='{"rotation": "none"}' class="fab-button-icon-mic"
+                    <ng-md-icon options='{"rotation": "none"}' class="fab-button-icon-sm"
                         icon="{{layout.recordIcon}}" style="fill: #fff" size="30"></ng-md-icon>   
                 </md-button>
             </div>               
@@ -71,7 +73,7 @@
         </md-sidenav>
                 
         <!-- Main View -->
-        <div ng-view="" flex layout="row"></div>
+        <div class="reveal-animation" ng-view="" flex layout="row"></div>
       
 
         <md-button ng-click="bottomFabRightButtonClick($event)" class="md-fab md-fab-bottom-right" aria-label="Add">  
@@ -174,12 +176,13 @@
     <script src="bower_components/angular-messages/angular-messages.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
     <script src="bower_components/svg-morpheus/compile/minified/svg-morpheus.js"></script>
+    <script src="bower_components/angular-material-icons/angular-material-icons.min.js"></script>
     <!-- endbower -->
     <!--customDependencies-->
     <script src="custom_dependencies/angular-bootstrap/ui-bootstrap-custom-tpls-0.14.3.js"></script>
     <script src="custom_dependencies/angular-scrollable-table/angular-scrollable-table.js"></script>
     <script src="custom_dependencies/angular-scrollable-table/angular-locale_es-419.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.0/angular-material-icons.min.js"></script> 
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.0/angular-material-icons.min.js"></script> -->
     <!--customDependencies-->
     <!-- /build -->
 
@@ -208,6 +211,10 @@
         <script src="scripts/controllers/modal/image.js"></script>
         <script src="scripts/controllers/modal/summaryCart.js"></script>
         <script src="scripts/controllers/bottomSheet/sellingOptions.js"></script>
+        <script src="scripts/controllers/bottomsheet/productManagerOptions.js"></script>
+        <script src="scripts/controllers/productManager.js"></script>
+        <script src="scripts/controllers/productDetails.js"></script>
+        <script src="scripts/controllers/modal/productDetailsModal.js"></script>
         <script src="scripts/services/sellings.js"></script>
         <script src="scripts/services/clients.js"></script>     
         <script src="scripts/controllers/questionModal.js"></script>   
@@ -215,9 +222,9 @@
         <script src="scripts/services/notifier.js"></script>
         <script src="scripts/services/searchInfo.js"></script>
         <script src="scripts/services/sellingItemInfo.js"></script>
+        <script src="scripts/services/productInfo.js"></script>
         <script src="scripts/services/speechRecognition.js"></script>
         <script src="scripts/directives/sellingquantity.js"></script>
-        <script src="scripts/directives/sellingItemContent.js"></script>
         <script src="scripts/directives/tagsproduct.js"></script>
         <script src="scripts/directives/shoppingcart.js"></script>
         <script src="scripts/directives/typeahead.js"></script>
@@ -225,6 +232,7 @@
         <script src="scripts/directives/sellingsDatepicker.js"></script>
         <script src="scripts/directives/sellingsbarchart.js"></script>
         <script src="scripts/directives/checkimage.js"></script>
+        <script src="scripts/directives/productDetails.js"></script>
         <script src="scripts/controllers/clientSearch.js"></script>
         <script src="scripts/controllers/clientSamples.js"></script>
         <script src="scripts/controllers/newclient.js"></script>

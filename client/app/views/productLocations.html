@@ -1,0 +1,35 @@
+<md-content class="background" layout="row" layout-xs="column" layout-padding>
+	<md-card flex>
+		<md-subheader>Agregar una Ubicacion:</md-subheader>
+		<form layout="row" flex ng-submit="addNewLocation()">
+			<md-input-container flex>
+			    <label>Nueva Ubicacion.</label>
+			    <input ng-model="newLocation.value" autocomplete="off">
+			</md-input-container>
+			<md-input-container flex>
+				<label>Tipo de Ubicacion</label>
+				<md-select  ng-model="newLocation.type" aria-label="newLocation">
+					<md-option ng-repeat="locationType in locationOptions.types" value="{{locationType}}">
+						{{locationType}}
+					</md-option>
+		        </md-select>
+			</md-input-container>			
+			<md-button  type="submit" class="md-fab md-mini" 
+		        aria-label="Add">
+		        <ng-md-icon options='{"rotation": "none"}' class="fab-button-icon-search"
+		            icon="add" style="fill: #fff" size="30"></ng-md-icon>   
+		    </md-button>
+		</form>
+	</md-card>
+	<md-card flex>
+		<md-list flex>
+			<md-list-item ng-repeat="location in selectedProduct.locations">
+				<p flex="80"> {{location.type}}: {{location.value}}</p>
+				<md-button ng-click="removeLocation(price)" class="md-secondary md-warn">
+				    Borrar
+				</md-button>
+				<md-divider></md-divider>
+			</md-list-item>
+		</md-list>
+	</md-card>
+</md-content>

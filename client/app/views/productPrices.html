@@ -1,0 +1,47 @@
+<md-content class="background" layout-xs="column" layout="row" layout-padding>
+	<md-card flex >
+		<md-subheader>Agregar un Precio:</md-subheader>
+	    <form flex layout="row" name="newPriceForm" ng-submit="newPriceForm.$valid && addNewPrice()"
+	    	layout-margin layout-wrap novalidate>
+	    	<md-input-container flex="100" flex-gt-sm>
+			    <label>Nuevo Precio Bs.</label>
+			    <input name="price" ng-model="newPrice.value" autocomplete="off" required>
+			    <div ng-messages="newPriceForm.price.$error">
+					<div ng-message="required">El precio es requerido.</div>					
+				</div>
+			</md-input-container>
+			<md-input-container flex="50" flex-gt-sm>
+				<label>Tipo de Precio</label>
+				<md-select  ng-model="newPrice.type" aria-label="newPrice">
+					<md-option ng-repeat="priceType in priceOptions.types" value="{{priceType}}">
+						{{priceType}}
+					</md-option>
+		        </md-select>
+			</md-input-container>
+			<md-input-container flex>
+				<label>Tipo de Precio</label>
+				<md-select  ng-model="newPrice.description" aria-label="newPrice">
+					<md-option ng-repeat="priceDescription in priceOptions.descriptions" value="{{priceDescription}}">
+						{{priceDescription}}
+					</md-option>
+		        </md-select>
+			</md-input-container>
+			<md-button  type="submit" class="md-fab md-mini" 
+		        aria-label="Add">
+		        <ng-md-icon options='{"rotation": "none"}' class="fab-button-icon-search"
+		            icon="add" style="fill: #fff" size="30"></ng-md-icon>   
+		    </md-button>
+	    </form>
+	</md-card>
+	<md-card flex>
+		<md-list>			
+			<md-list-item ng-repeat="price in selectedProduct.prices">
+				<p> {{price.type}} {{price.description}}, {{price.value}} Bs.</p>
+				<md-button ng-click="removePrice(price)" class="md-secondary md-warn">
+				    Borrar
+				</md-button>
+				<md-divider></md-divider>
+			</md-list-item>			
+	  	</md-list>
+	</md-card>
+</md-content>

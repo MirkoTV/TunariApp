@@ -8,7 +8,7 @@
  * Service in the clientApp.
  */
 angular.module('tunariApp')
-  .service('SearchInfo', function () {
+  .service('SearchInfo', ['Products', function (Products) {
     
     this.tags = "";
 
@@ -20,4 +20,23 @@ angular.module('tunariApp')
     	this.tags = tags;
     }
 
-  });
+    this.getProductNames = function(query) {
+    	if (query && query !== "") {
+            console.log("asdfsdf")
+            var query = query ? {tags:query} : {};                
+            query.properties = "name";
+            query.querySort = "name";
+            query.queryLimit = 10;
+
+            return Products.getList(query).then(function(products) {
+                var productNames = _.map(products, 'name');
+                
+                return productNames;
+            });       
+        }
+        else {
+            return [];
+        }
+    }
+
+  }]);

@@ -121,13 +121,20 @@ input::-webkit-inner-spin-button {
 /*Angular Material*/
 
 ng-md-icon {
-  position: relative;
-  top: 5px; 
+  /*position: relative;*/
+  /*top: 5px; */
 }
 
 ng-md-icon.fab-button-icon {
   position: relative;
-  top: 10px; 
+  top: -7px;
+  left: -7px;
+}
+
+ng-md-icon.fab-button-icon-sm {
+  position: relative;
+  top: -2px;
+  left: -2px; 
 }
 
 md-content.md-default-theme, md-content.main-content {
@@ -141,3 +148,36 @@ md-content.md-default-theme, md-content.main-content {
 .menu-button {
   background-color: #737373;
 }
+
+
+
+
+
+
+
+
+
+#vertical-container {
+    height: 1000px;
+    background-color: rgb(229, 223, 223);
+    /*width: 400px;*/
+}
+
+/*.virtualRepeatdemoInfiniteScroll .repeated-item {
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+    height: 40px;
+    padding-top: 10px;
+}
+
+.virtualRepeatdemoInfiniteScroll md-content {
+    margin: 16px;
+}
+
+.virtualRepeatdemoInfiniteScroll md-virtual-repeat-container {
+    border: solid 1px grey;
+}
+
+.virtualRepeatdemoInfiniteScroll .md-virtual-repeat-container .md-virtual-repeat-offsetter {
+    padding-left: 16px;
+}*/

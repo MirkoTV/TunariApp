@@ -9,16 +9,24 @@
  */
 angular.module('tunariApp')
   .controller('NewProductCtrl', 
-              ['$scope', '$location', 'ServerData', 'Products', 'Notifier', 'Messages',
-             function ($scope, $location, ServerData, Products, Notifier, Messages) {
+              ['$scope', '$mdDialog', '$location', 'ServerData', 'Products', 'Notifier', 'Messages',
+             function ($scope, $mdDialog, $location, ServerData, Products, Notifier, Messages) {
      window.scrollTo(0, 0);
     $scope.serverData = ServerData;
+
+    $scope.priceTypes = ["Paquete", "Unidad"];
+    $scope.product = {
+        price: {
+            type: $scope.priceTypes[0]
+        },
+        prices: [],
+        tags: []
+    }
 
     ServerData.config.get().then(function(config){
         $scope.config = config;
         $scope.categories = _.pluck(config.productCategories, 'name');
-        $scope.product.category = $scope.categories[0];
-        $scope.updateCategory();        
+        //$scope.updateCategory();        
     });
 
     $scope.updateCategory = function () {
@@ -42,13 +50,14 @@ angular.module('tunariApp')
     
     $scope.createProduct = function() {
         prepareProductBeforeSaving();
-        $(".nav").find(".active").removeClass("active");
-        Products.post($scope.product).then(function(){
-            $location.path("/productSearch");    
+
+        Products.post($scope.product).then(function(product){  
             Notifier({ 
                 message: Messages.message002 + $scope.product.name,
                 classes: 'alert-success'
             });
+
+            $mdDialog.hide(product);
         }, function(response){
 
             // Validate if products already exists
@@ -64,24 +73,32 @@ angular.module('tunariApp')
                     classes: 'alert-danger'
                 });
             }
+
+            $mdDialog.hide($scope.product);
         });
     };
 
     var prepareProductBeforeSaving = function(){
         // Default value for sortTag, this can be overriden in prepareSpecificPropertiesBeforeProductSaving
-        $scope.product.sortTag = $scope.product.category + $scope.product.name;
+        /*$scope.product.sortTag = $scope.product.category + $scope.product.name;*/
+        $scope.product.sortTag = $scope.product.name;
+        $scope.product.prices.push($scope.product.price);
         
         $scope.product.tags.push($scope.product.name);       
-        $scope.product.tags.push($scope.product.category);       
-        $scope.product.tags.push($scope.product.provider); 
+/*        $scope.product.tags.push($scope.product.category);       
+        $scope.product.tags.push($scope.product.provider); */
 
-        $scope.$broadcast ('prepareSpecificPropertiesBeforeProductSaving');
+        //$scope.$broadcast ('prepareSpecificPropertiesBeforeProductSaving');
     }
 
     $scope.cancelProduct = function(){
         $location.path("/productSearch");  
         $(".nav").find(".active").removeClass("active");
     };
+
+    $scope.cancel = function () {
+        $mdDialog.cancel();
+    }; 
     
     $('#name').focus();
   }]);

@@ -19,10 +19,12 @@
 
 <div class="reveal-animation" ng-if="shoppingCartSellings.length == 0" flex layout-margin  
 	layout="column" layout-align="center center">
-	<ng-md-icon flex style="fill: #65696B;opacity:.10" class="fab-button-icon-cart" 
-	    icon="shopping_cart" size="200" aria-label="call">
-	</ng-md-icon>
-	<span flex style="fill: #65696B;opacity:.50"  flex class="md-subhead description">
+	<section flex>
+		<ng-md-icon style="fill: #65696B;opacity:.10" layout-fill	
+		    icon="shopping_cart" size="200" aria-label="call">
+		</ng-md-icon>
+	</section>
+	<section flex style="fill: #65696B;opacity:.50"  class="md-subhead description">
 		No hay ningun item en el carrito. Agreguemos uno!
-	</span>
+	</section>
 </div>

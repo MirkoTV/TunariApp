@@ -15,10 +15,15 @@ angular.module('tunariApp')
     $scope.menus = {
       products: {
         icon: 'dashboard',
-        redirectTo: '/productSearch',
-        subMenuView: 'views/productsSubMenu.html',
+        redirectTo: '/shop',
         propName: 'products',
         text: 'Productos'
+      },
+      productManager: {
+        icon: 'store',
+        redirectTo: '/productManager',        
+        propName: 'productManager',
+        text: 'Almace de productos'
       },
       clients: {
         icon: 'people',

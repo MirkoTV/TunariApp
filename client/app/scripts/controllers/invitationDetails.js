@@ -10,20 +10,28 @@
 angular.module('tunariApp')
   .controller('InvitationDetailsCtrl', ['$scope', 'ServerData', function ($scope, ServerData) {
 
-	ServerData.config.get().then(function(config){
+	/*ServerData.config.get().then(function(config){
         $scope.config = config;
-        $scope.$parent.product.properties.type =    $scope.$parent.product.properties.type ? 
-                                                    $scope.$parent.product.properties.type :
-                                                    config.invitationTypes[0]
-        $scope.updateProperties();        
+      /*  $scope.selectedProduct.properties.type =    $scope.selectedProduct.properties.type ? 
+                                                    $scope.selectedProduct.properties.type :
+                                                    config.invitationTypes[0]*/
+    /*    $scope.updateProperties();        
+    });*/    
+
+    $scope.$on('updateProperties', function(e) {
+        $scope.updateProperties();
     });
 
     // Setup specific properties in invitationDetails, based in product type
     // Merge default configuration with specific configuration
     $scope.updateProperties = function() {
-    	$scope.invitationsDetails = $.extend(true, {}, $scope.config.invitationsDetails['Default']);  
-        var productType = $scope.$parent.product.properties.type;
-        _.merge($scope.invitationsDetails, $scope.config.invitationsDetails[productType] || {}, 
+
+        if($scope.selectedProduct.category !== "Invitaciones") return;
+
+    	$scope.invitationsDetails = $.extend(true, {}, $scope.$parent.serverConfig.invitationsDetails['Default']);
+        var productProperties = $scope.selectedProduct.properties || {};
+        var productType = productProperties.type;
+        _.merge($scope.invitationsDetails, $scope.$parent.serverConfig.invitationsDetails[productType] || {}, 
             // Replace first array with second array when merging
             // Default behavior would mix the arrays, that is not what we want
             function(a, b) {
@@ -34,19 +42,19 @@ angular.module('tunariApp')
         );      
 
         $scope.sizes =  $scope.invitationsDetails.sizes;
-        $scope.$parent.product.properties.size =    _.includes($scope.sizes, $scope.$parent.product.properties.size) ? 
+        /*$scope.$parent.product.properties.size =    _.includes($scope.sizes, $scope.$parent.product.properties.size) ? 
                                                     $scope.$parent.product.properties.size : 
-                                                    $scope.sizes[0];   
+                                                    $scope.sizes[0];   */
         $scope.genres =  $scope.invitationsDetails.genres;
-        $scope.$parent.product.properties.genre =   _.includes($scope.genres, $scope.$parent.product.properties.genre) ? 
+        /*$scope.$parent.product.properties.genre =   _.includes($scope.genres, $scope.$parent.product.properties.genre) ? 
                                                     $scope.$parent.product.properties.genre :
-                                                    $scope.genres[0];            
+                                                    $scope.genres[0];            */
     };
 
     // Called by the parent scope
     $scope.$on('prepareProductToSaveSpecificProperties', function(e) { 
         // Remove current type, size, genre from tags
-        $scope.$parent.product.tags = _.difference($scope.$parent.product.tags, _.intersection($scope.$parent.product.tags, $scope.config.invitationTypes));
+        $scope.$parent.product.tags = _.difference($scope.$parent.product.tags, _.intersection($scope.$parent.product.tags, $scope.$parent.serverConfig.invitationTypes));
         $scope.$parent.product.tags = _.difference($scope.$parent.product.tags, _.intersection($scope.$parent.product.tags, $scope.invitationsDetails.sizes));
         $scope.$parent.product.tags = _.difference($scope.$parent.product.tags, _.intersection($scope.$parent.product.tags, $scope.invitationsDetails.genres));
             
@@ -72,5 +80,7 @@ angular.module('tunariApp')
     
         return number;
     }
+
+//    $scope.updateProperties();
 
 }]);

@@ -60,7 +60,7 @@ angular
     
     $routeProvider
       .when('/', {
-        templateUrl: 'views/shoppingTabs.html',
+        templateUrl: 'views/mainViews/shoppingTabs.html',
         controller: 'ShopCtrl',
         controllerAs: 'ProductSearcher'
       })
@@ -69,10 +69,15 @@ angular
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
-      .when('/shoppingTabs', {
-        templateUrl: 'views/shoppingTabs.html',
+      .when('/shop', {
+        templateUrl: 'views/mainViews/shoppingTabs.html',
         controller: 'ShopCtrl',
         controllerAs: 'ProductSearcher'
+      })
+      .when('/productManager', {
+        templateUrl: 'views/mainViews/productManagerTabs.html',
+        controller: 'ProductManagerCtrl',
+        controllerAs: 'ProductManager'
       })
       .when('/products/:productId', {
         templateUrl: 'views/editProduct.html',
