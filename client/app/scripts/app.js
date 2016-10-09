@@ -74,6 +74,11 @@ angular
         controller: 'ShopCtrl',
         controllerAs: 'ProductSearcher'
       })
+      .when('/products', {
+        templateUrl: 'views/products.html',
+        controller: 'ProductsCtrl',
+        controllerAs: 'Products'
+      })
       .when('/products/:productId', {
         templateUrl: 'views/editProduct.html',
         controller: 'EditProductCtrl',

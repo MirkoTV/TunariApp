@@ -31,10 +31,6 @@ md-list-item .md-avatar.product-image {
     height: 70px;
 }
 
-md-card .md-card-image {
-    border-radius: 5%
-}
-
 .background {
     background-color: rgb(229, 223, 223);
 }
