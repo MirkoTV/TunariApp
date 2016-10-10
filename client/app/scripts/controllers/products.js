@@ -8,17 +8,34 @@
  * Controller of the clientApp
  */
 angular.module('tunariApp')
-  .controller('ProductsCtrl', ['$scope', 'Products', 'ProductInfo',
-        function ($scope, Products, ProductInfo) {
+  .controller('ProductsCtrl', ['$scope', '$location', '$mdDialog', '$mdMedia', 'Products', 'ProductInfo',
+        function ($scope, $location, $mdDialog, $mdMedia, Products, ProductInfo) {
 
     Products.getList({}).then(function(products) {
         $scope.products = products;
-        $scope.product = products[0];
-        console.log($scope.product.name);
     });
 
     $scope.getProductImageUrl = function(product, sufix) {
         return  ProductInfo.getProductImageUrl(product, sufix);
     }
+
+    $scope.editProduct = function(productId){
+        $location.path ("products/" + productId);
+    }
+
+    $scope.$on('onBottomFabRightButtonClicked', function(event, args) {
+        var useFullScreen = ($mdMedia('xs'));
+
+        $mdDialog.show({
+            controller: 'NewProductCtrl',
+            templateUrl: '../../views/modal/newProduct.html',
+            parent: angular.element(document.body),
+            targetEvent: args.ev,
+            clickOutsideToClose:true,
+            fullscreen: useFullScreen
+        }).then(function(product) {
+            $scope.products.splice(0, 0, product);
+        });
+    });
 
   }]);

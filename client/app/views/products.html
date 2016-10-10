@@ -1,7 +1,7 @@
 <md-content flex class="background md-padding layout-wrap" layout="row">
-    <div ng-repeat="product in products" flex-sm="33" flex-md="25" flex-gt-md="20"
-         hide-xs show-gt-sm layout="column">
-        <md-card>
+    <div class="animate-repeat" ng-repeat="product in products" flex-sm="33" flex-md="25" flex-gt-md="20"
+         hide-xs show-gt-sm layout="column" class="product-card">
+        <md-card ng-click="editProduct(product._id)">
             <img check-image ng-src="{{getProductImageUrl(product, '-L')}}"
                  class="md-card-image">
             <md-card-title>
@@ -14,7 +14,7 @@
 
     <md-list hide-gt-xs flex>
         <div ng-repeat="product in products">
-            <md-list-item class="md-2-line">
+            <md-list-item class="md-2-line" ng-click="editProduct(product._id)">
                 <img check-image ng-src="{{getProductImageUrl(product, '-S')}}"
                     class="md-avatar product-image"/>
                 <div class="md-list-item-text" >

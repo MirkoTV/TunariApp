@@ -9,16 +9,23 @@
  */
 angular.module('tunariApp')
   .controller('NewProductCtrl', 
-              ['$scope', '$location', 'ServerData', 'Products', 'Notifier', 'Messages',
-             function ($scope, $location, ServerData, Products, Notifier, Messages) {
+              ['$scope', '$location', '$mdDialog', 'Settings', 'ServerData', 'Products', 'Notifier', 'Messages',
+             function ($scope, $location, $mdDialog, Settings, ServerData, Products, Notifier, Messages) {
      window.scrollTo(0, 0);
     $scope.serverData = ServerData;
-
-    ServerData.config.get().then(function(config){
+    $scope.productNames = [];
+    $scope.product = {};
+    /*ServerData.config.get().then(function(config){
         $scope.config = config;
         $scope.categories = _.pluck(config.productCategories, 'name');
         $scope.product.category = $scope.categories[0];
-        $scope.updateCategory();        
+        $scope.updateCategory();
+    });*/
+
+    Settings.getList().then(function(settings){
+        $scope.categories = _.find(settings, {'key': 'productCategories'}).value;
+        $scope.invitationTypes = _.find(settings, {'key': 'invitationTypes'}).value;
+        $scope.product.category = $scope.categories[0];
     });
 
     $scope.updateCategory = function () {
@@ -82,6 +89,14 @@ angular.module('tunariApp')
         $location.path("/productSearch");  
         $(".nav").find(".active").removeClass("active");
     };
-    
+
+    $scope.cancel = function () {
+        $mdDialog.cancel();
+    }
+
+    $scope.save = function() {
+        $mdDialog.hide($scope.product);
+    }
+
     $('#name').focus();
   }]);
