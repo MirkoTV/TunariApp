@@ -1,28 +1,14 @@
 <md-content flex class="background md-padding layout-wrap" layout="row">
     <div class="animate-repeat" ng-repeat="product in products" flex-sm="33" flex-md="25" flex-gt-md="20"
-         hide-xs show-gt-sm layout="column" class="product-card">
+          layout="column" class="product-card">
         <md-card ng-click="editProduct(product._id)">
             <img check-image ng-src="{{getProductImageUrl(product, '-L')}}"
-                 class="md-card-image">
+                 class="md-card-image product-image">
             <md-card-title>
                 <md-card-title-text>
-                    <span class="md-headline">{{product.name}}</span>
+                    <span class="md-title">{{product.name}}</span>
                 </md-card-title-text>
             </md-card-title>
         </md-card>
     </div>
-
-    <md-list hide-gt-xs flex>
-        <div ng-repeat="product in products">
-            <md-list-item class="md-2-line" ng-click="editProduct(product._id)">
-                <img check-image ng-src="{{getProductImageUrl(product, '-S')}}"
-                    class="md-avatar product-image"/>
-                <div class="md-list-item-text" >
-                    <h3>{{ product.name }}</h3>
-                    <p>{{product.properties.type || product.category}}</p>
-                </div>
-            </md-list-item>
-            <md-divider ></md-divider>
-        </div>
-    </md-list>
 </md-content>

@@ -11,6 +11,7 @@ angular.module('tunariApp')
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {
+            element.attr('src', Config.serverOptions.target + "/images/" + "notFound.gif");
             attrs.$observe('ngSrc', function(ngSrc) {
                 $http.get(ngSrc).success(function(){
                 }).error(function() {
