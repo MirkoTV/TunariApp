@@ -38,4 +38,9 @@ angular.module('tunariApp')
         });
     });
 
+    $('.grid').masonry({
+        // options
+        itemSelector: 'md-card',
+        columnWidth: 50
+    });
   }]);
