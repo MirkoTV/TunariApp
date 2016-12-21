@@ -22,7 +22,8 @@ angular
     'scrollable-table',
     'ngMaterial',
     'ngMdIcons',
-    'ngMessages'
+    'ngMessages',
+    'ui.materialize'
   ])
   .config(['$routeProvider', '$mdThemingProvider', '$httpProvider', 'RestangularProvider', 'Config', 
     function ($routeProvider, $mdThemingProvider, $httpProvider, RestangularProvider, Config) {

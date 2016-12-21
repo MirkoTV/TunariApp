@@ -1,120 +1,114 @@
-<md-content flex=20 layout="row">
-    <md-content flex class="background">
-        <md-list flex>
-            <md-subheader class="background md-no-sticky">Productos</md-subheader>
-            <md-list-item class="md-3-line" ng-repeat="product in products" ng-click="null">
-                <img ng-src="http://g02.a.alicdn.com/kf/HTB1ctgiIFXXXXcYXXXXq6xXFXXXh/-Brand-New-Original-Super-Quality-with-box-packing-Pilot-bp-s-multicolour-ballpoint-pen-bp.jpg"
-                        class="md-avatar">
-                <div class="md-list-item-text" layout="column">
-                    <h3>{{ product.name }}</h3>
-                    <h4>{{ product.name }}</h4>
-                    <p>{{ product.name }}</p>
-                </div>
-            </md-list-item>
-            <md-list-item class="md-3-line" ng-repeat="product in products" ng-click="null">
-                <img  ng-src="http://g02.a.alicdn.com/kf/HTB1ctgiIFXXXXcYXXXXq6xXFXXXh/-Brand-New-Original-Super-Quality-with-box-packing-Pilot-bp-s-multicolour-ballpoint-pen-bp.jpg"
-                        class="md-avatar">
-                <div class="md-list-item-text" layout="column">
-                    <h3>{{ product.name }}</h3>
-                    <h4>{{ product.name }}</h4>
-                    <p>{{ product.name }}</p>
-                </div>
-            </md-list-item>
-            <md-list-item class="md-3-line" ng-repeat="product in products" ng-click="null">
-                <img  ng-src="http://g02.a.alicdn.com/kf/HTB1ctgiIFXXXXcYXXXXq6xXFXXXh/-Brand-New-Original-Super-Quality-with-box-packing-Pilot-bp-s-multicolour-ballpoint-pen-bp.jpg"
-                        class="md-avatar">
-                <div class="md-list-item-text" layout="column">
-                    <h3>{{ product.name }}</h3>
-                    <h4>{{ product.name }}</h4>
-                    <p>{{ product.name }}</p>
-                </div>
-            </md-list-item>
-            
-        </md-list>
-    </md-content>
-    <md-button class="md-fab md-fab-bottom-right" aria-label="Add">          
-        <ng-md-icon style="fill: #fff" icon="add" class="fab-button-icon" size="40">
-        </ng-md-icon>  
-    </md-button>
-</md-content>
-<md-content flex class="background md-padding layout-wrap" layout="row">
+<!--<md-content md-is-locked-open=true flex=15 layout="row" class="background md-whiteframe-2dp">        
+    <md-list flex>
+        <md-subheader class="md-no-sticky">Filtros</md-subheader>
+        <md-list-item ng-click=null>
+            <p> Mementos </p>            
+        </md-list-item>
+        <md-list-item ng-click=null>
+            <p> Mementos </p>            
+        </md-list-item>
+        <md-list-item ng-click=null>
+            <p> Mementos </p>            
+        </md-list-item>
+    </md-list>        
+</md-content>-->
+<md-content flex class="background" layout="row">
     <!--<md-card ng-click="editProduct(product._id)" flex="25">
         <img ng-src="http://g02.a.alicdn.com/kf/HTB1ctgiIFXXXXcYXXXXq6xXFXXXh/-Brand-New-Original-Super-Quality-with-box-packing-Pilot-bp-s-multicolour-ballpoint-pen-bp.jpg"
                 class="md-card-image product-image">
     </md-card>-->
     
-      
-
     
+    
+    <md-content flex>
+        <section  flex=70 flex-sm=80 flex-offset-sm="10" flex-offset="15">
+            <div flex=100 class="md-padding">
+                <md-chips 
+                    ng-model="tags"
+                    readonly="readonly"
+                    md-removable="removable"
+                    placeholder="Busquemos un producto!"
+                    delete-button-label="Remove Tag"
+                    delete-hint="Press delete to remove tag"
+                    secondary-placeholder="Escribe algo mas!"></md-chips>
+                            
+            </div>        
+                
+            <div flex-offset=5 flex=95 class="grid">                
+                <div flex-xs=100 flex=30 md-whiteframe="24" class="card sticky-action" ng-repeat="i in images">
+                    <div class="card-image">
+                        <img materialboxed class="materialboxed responsive-img" width="650" ng-src="{{i}}">
+                    </div>
+                    <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4">Card Title</span>
+                    </div>
+                    <div class="card-action">
+                        250 Bs el paquete
+                    </div>
 
-    <div flex class="grid">
-        <md-card class="grid-item--width2">
-        <img flex ng-src="http://g02.a.alicdn.com/kf/HTB1ctgiIFXXXXcYXXXXq6xXFXXXh/-Brand-New-Original-Super-Quality-with-box-packing-Pilot-bp-s-multicolour-ballpoint-pen-bp.jpg"
-                >
-        </md-card>
-        <md-card class="grid-item">
-            <md-card-title>
-                <md-card-title-text>
-                    <span class="md-headline">250 Unidades</span>
-                    <span class="md-subhead">Cantidad en Deposito</span>
-                </md-card-title-text>
-        </md-card>
-
-        <md-card class="grid-item">
-            <md-card-content>
-                <md-radio-group ng-model="data.group1">
-                    <md-radio-button value="Apple" class="md-primary">Apple</md-radio-button>
-                    <md-radio-button value="Banana"> Banana </md-radio-button>
-                    <md-radio-button value="Mango">Mango</md-radio-button>
-                </md-radio-group>
-            </md-card-content>
-        </md-card>
-
-
-        <md-card class="grid-item--width2">
-            <md-card-content>
-            <form name="projectForm">
-
-                <md-input-container class="md-block">
-                    <label>Description</label>
-                    <input required md-no-asterisk name="description">
-                    
-                </md-input-container>
-
-                <div layout="row">
-                    <md-input-container flex="50">
-                    <label>Client Name</label>
-                    <input required name="clientName" >
-                    </md-input-container>
-
-                    <md-input-container flex="50">
-                    <label>Project Type</label>
-                    <md-select name="type" ng-model="project.type" required>
-                        <md-option value="app">Application</md-option>
-                        <md-option value="web">Website</md-option>
-                    </md-select>
-                    </md-input-container>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                        <p>Deposito 2, Estante 1, Peldaño 4</p>
+                        <md-list>
+                            <md-list-item>
+                                <p>Memento</p>                                
+                            </md-list-item>
+                            <md-divider></md-divider>
+                            <md-list-item>
+                                <p>260 Unidades en deposito </p>                                
+                            </md-list-item>
+                            <md-divider></md-divider>
+                            <md-list-item>
+                                <p>Tunari</p>                                
+                            </md-list-item>
+                            <md-divider></md-divider>
+                        </md-list>
+                    </div>                    
                 </div>
+                <div flex-xs=100 flex=30 md-whiteframe="24" class="card sticky-action" ng-repeat="i in images">
+                    <div class="card-image">
+                        <img materialboxed class="materialboxed responsive-img" width="650" ng-src="{{i}}">
+                    </div>
+                    <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4">Card Title</span>
+                    </div>
+                    <div class="card-action">
+                        250 Bs el paquete
+                    </div>
 
-                <md-input-container class="md-block">
-                    <label>Client Email</label>
-                    <input required type="email" name="clientEmail"/>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                        <p>Deposito 2, Estante 1, Peldaño 4</p>
+                        <md-list>
+                            <md-list-item>
+                                <p>Memento</p>                                
+                            </md-list-item>
+                            <md-divider></md-divider>
+                            <md-list-item>
+                                <p>260 Unidades en deposito </p>                                
+                            </md-list-item>
+                            <md-divider></md-divider>
+                            <md-list-item>
+                                <p>Tunari</p>                                
+                            </md-list-item>
+                            <md-divider></md-divider>
+                        </md-list>
+                    </div>                    
+                </div>
+                <md-card flex-xs=100 flex=30 md-whiteframe="24" >                    
+                </md-card>                                                
+            </div>
+        </section>
+        
+    </md-content>
 
-                </md-input-container>
-                </form>
-            </md-card-content>
-        </md-card>
-        <md-card class="grid-item">
-            <img flex ng-src="http://www.papelartepapelaria.com.br/files/material-para-escritorio-3.jpg"
-                    >
-        </md-card>
-        <md-card class="grid-item">
-            <img flex ng-src="http://www.beetrade.com.br/imagens/produtos/kit-escritorio-material-de-escritorio-4-pecas-bv45.jpg"
-                    >
-        </md-card>   
-        <md-card class="grid-item">
-            <img flex ng-src="http://www.papelariauniverso.com/papelaria/files/cache/75bb6b3f0eee6cac973c89631c99ee91_f63.jpg"
-                    >
-        </md-card> 
-    </div>
+    <md-button class="md-fab md-fab-bottom-right" style="bottom: 90px">          
+        <ng-md-icon style="fill: #fff" icon="search" class="fab-button-icon" size="40">
+        </ng-md-icon>  
+    </md-button>
+    <md-button class="md-fab md-fab-bottom-right">          
+        <ng-md-icon style="fill: #fff" icon="add" class="fab-button-icon" size="40">
+        </ng-md-icon>  
+    </md-button>
+
 </md-content>

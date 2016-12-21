@@ -34,4 +34,5 @@
 }
 
 .grid-item { width: 200px; }
-.grid-item--width2 { width: 400px; }
+.grid-item--width2 { width: 30%; }
+.grid-item--width3 { width: 100%; }
