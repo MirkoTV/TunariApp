@@ -12,7 +12,7 @@
         </md-list-item>
     </md-list>        
 </md-content>-->
-<md-content flex class="background" layout="row">
+<md-content flex layout="row">
     <!--<md-card ng-click="editProduct(product._id)" flex="25">
         <img ng-src="http://g02.a.alicdn.com/kf/HTB1ctgiIFXXXXcYXXXXq6xXFXXXh/-Brand-New-Original-Super-Quality-with-box-packing-Pilot-bp-s-multicolour-ballpoint-pen-bp.jpg"
                 class="md-card-image product-image">
@@ -20,7 +20,7 @@
     
     
     
-    <md-content flex>
+    <md-content flex class="background">
         <section  flex=70 flex-sm=80 flex-offset-sm="10" flex-offset="15">
             <div flex=100 class="md-padding">
                 <md-chips 
@@ -35,7 +35,7 @@
             </div>        
                 
             <div flex-offset=5 flex=95 class="grid">                
-                <div flex-xs=100 flex=30 md-whiteframe="24" class="card sticky-action" ng-repeat="i in images">
+                <div flex-xs=100 flex-sm=50 flex=30 md-whiteframe="18" class="card sticky-action" ng-repeat="i in images">
                     <div class="card-image">
                         <img materialboxed class="materialboxed responsive-img" width="650" ng-src="{{i}}">
                     </div>
@@ -47,25 +47,25 @@
                     </div>
 
                     <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                        <p>Deposito 2, Estante 1, Peldaño 4</p>
-                        <md-list>
-                            <md-list-item>
-                                <p>Memento</p>                                
-                            </md-list-item>
-                            <md-divider></md-divider>
-                            <md-list-item>
-                                <p>260 Unidades en deposito </p>                                
-                            </md-list-item>
-                            <md-divider></md-divider>
-                            <md-list-item>
-                                <p>Tunari</p>                                
-                            </md-list-item>
-                            <md-divider></md-divider>
-                        </md-list>
+                        <div flex layout="row">
+                            <div flex class="grey-text text-darken-4">                                
+                                <i class="material-icons right" ng-click="openCreateProduct($event)">mode_edit</i>
+                                <i class="material-icons right" ng-click="deleteProduct($event)">delete</i>                            
+                            </div>
+                        </div>
+                        <div flex>
+                            <div  flex class="card-title grey-text text-darken-4">
+                                Card Title                                                                             
+                            </div>
+                            </br>
+                            <b>Ubicacion:</b> Deposito 2, Estante 1, Peldaño 4</br>
+                            <b>Tipo:</b> Memento</br>             
+                            <b>Cantidad:</b> 260 Unidades en deposito</br>  
+                            <b>Proveedor:</b> Tunari</br>
+                        </div>
                     </div>                    
                 </div>
-                <div flex-xs=100 flex=30 md-whiteframe="24" class="card sticky-action" ng-repeat="i in images">
+                <div flex-xs=100 flex-sm=45 flex=30 md-whiteframe="18" class="card sticky-action" ng-repeat="i in images">
                     <div class="card-image">
                         <img materialboxed class="materialboxed responsive-img" width="650" ng-src="{{i}}">
                     </div>
@@ -107,7 +107,7 @@
         </ng-md-icon>  
     </md-button>
     <md-button class="md-fab md-fab-bottom-right">          
-        <ng-md-icon style="fill: #fff" icon="add" class="fab-button-icon" size="40">
+        <ng-md-icon style="fill: #fff" icon="add" ng-click="openCreateProduct($event)" class="fab-button-icon" size="40">
         </ng-md-icon>  
     </md-button>
 

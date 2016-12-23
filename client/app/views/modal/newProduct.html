@@ -1,4 +1,179 @@
-<md-dialog flex-gt-xs="50" aria-label="summaryCart"  ng-cloak>
+<md-dialog>
+     <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Nuevo Producto</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <ng-md-icon class="icon" style="fill: #fff" icon="close" size="20" aria-label="call">
+                </ng-md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content style="max-width:800px;max-height:810px;min-width:600px ">
+        <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="General">
+                <form layout-padding flex  ng-submit="save()">
+                    <br/>
+                    <div flex layout="row">
+                        <md-input-container flex>
+                            <md-select ng-model="product.category" placeholder="Categoria">
+                                <md-option ng-repeat="category in categories" ng-value="category">
+                                    {{category.name}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex ng-if="product.category.name === 'Invitaciones'">
+                            <md-select ng-model="product.properties.type" placeholder="Tipo">
+                                <md-option ng-repeat="type in invitationTypes" ng-value="type">
+                                    {{type}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                    <div flex layout="row">
+                        <md-input-container flex>
+                            <label>Nombre</label>
+                            <input ng-model="product.name" type="text">
+                        </md-input-container>
+                    </div>
+                </form>
+            </md-tab>
+            <md-tab label="Precios" >
+                <md-content flex layout="row">       
+                    <md-card md-whiteframe="4" layout-padding flex=40>   
+                        <md-card-content>  
+                            <md-subheader class="center">Nuevo Precio</md-subheader>        
+                            <form >
+                                <br/>                 
+                                <div flex layout="column">                        
+                                    <md-input-container flex>
+                                        <label>Precio</label>
+                                        <input type="number">
+                                    </md-input-container>
+                                    <md-input-container ng-if="isPriceQuantityInputShowed" flex>
+                                        <label>Cantidad</label>
+                                        <input type="number">
+                                    </md-input-container>
+                                    <md-select flex ng-model="weapon" ng-if="!isPriceQuantityInputShowed"  placeholder="Cantidad" class="md-no-underline">
+                                        <md-option value="1">1</md-option>
+                                        <md-option value="100">100</md-option>
+                                        <md-option value="" ng-click="showPriceQuantityInput()">Otro</md-option>                                        
+                                    </md-select>                                    
+                                    <md-input-container ng-if="isPriceDescriptionInputShowed" flex>
+                                        <label>Descripcion</label>
+                                        <input type="number">
+                                    </md-input-container>                                    
+                                    <md-select flex ng-if="!isPriceDescriptionInputShowed" ng-model="desription" placeholder="Descripcion" class="md-no-underline">
+                                        <md-option value="Unidad">Unidad</md-option>
+                                        <md-option value="Paquete">Paquete</md-option>
+                                        <md-option value="Unidad Especial">Unidad Especial</md-option>
+                                        <md-option value="Paquete Especial">Paquete Especial</md-option>
+                                        <md-option value="" ng-click="showPriceDescriptionInput()">Otro</md-option>                                           
+                                    </md-select>
+                                </div>
+                            </form>
+                        </md-card-content>
+                        <md-card-actions layout="row" layout-align="end center">
+                            <md-button class="md-fab md-mini md-hue-2">          
+                                <ng-md-icon style="fill: #fff" icon="add" ng-click="addPrice()"class="fab-button-icon" size="30">
+                                </ng-md-icon>  
+                            </md-button>                                
+                        </md-card-actions>
+                    </md-card>                    
+
+                    <md-card md-whiteframe="4" flex=60>     
+                        <md-list flex>
+                            <md-subheader class="center">Lista de precios</md-subheader>
+                            <md-list-item class="md-2-line" ng-click="null">
+                                <div flex=20 ng-src="" class="md-avatar">
+                                    2 Bs
+                                </div>
+                                <div class="md-list-item-text" layout="column">
+                                    <h3>1 Unidad</h3>                            
+                                    <p>Unidad</p>
+                                </div>
+                            </md-list-item>
+                            <md-list-item class="md-2-line md-primary" ng-click="null">
+                                <div flex=20 ng-src="" class="md-avatar">
+                                    150 Bs
+                                </div>
+                                <div class="md-list-item-text" layout="column">
+                                    <h3>100 Unidades</h3>                            
+                                    <p>Paquete</p>
+                                </div>
+                            </md-list-item>
+                            <md-list-item class="md-2-line" ng-click="null">
+                                <div flex=20 ng-src="" class="md-avatar">
+                                    3 Bs
+                                </div>
+                                <div class="md-list-item-text" layout="column">
+                                    <h3>1 Unidad</h3>                            
+                                    <p>Unidad Especial</p>
+                                </div>
+                            </md-list-item>
+                            <md-list-item class="md-2-line" ng-click="null">
+                                <div flex=20 ng-src="" class="md-avatar">
+                                    300 Bs
+                                </div>
+                                <div class="md-list-item-text" layout="column">
+                                    <h3>100 Unidades</h3>                            
+                                    <p>Paquete Especial</p>
+                                </div>
+                            </md-list-item>
+                        </md-list> 
+                    </md-card>  
+                </md-content>                            
+            </md-tab>
+            <md-tab label="Ubicaciones">
+                <md-content flex layout="row">       
+                    <md-card md-whiteframe="4" layout-padding flex=40>   
+                        <md-card-content>  
+                            <md-subheader class="center">Nueva Ubicacion</md-subheader>        
+                            <form >
+                                <br/>                 
+                                <div flex layout="column">                        
+                                    <md-input-container flex>
+                                        <label>Descripcion</label>
+                                        <input type="number">
+                                    </md-input-container>
+                                    <md-select flex ng-model="locationType" placeholder="Tipo" class="md-no-underline">
+                                        <md-option value="Deposito">Deposito</md-option>
+                                        <md-option value="Tienda">Tienda</md-option>                                                                                   
+                                    </md-select>
+                                </div>
+                            </form>
+                        </md-card-content>
+                        <md-card-actions layout="row" layout-align="end center">
+                            <md-button class="md-fab md-mini md-hue-2">          
+                                <ng-md-icon style="fill: #fff" icon="add" ng-click="addLocation()" class="fab-button-icon" size="30">
+                                </ng-md-icon>  
+                            </md-button>                     
+                        </md-card-actions>
+                    </md-card>                    
+
+                    <md-card md-whiteframe="4" flex=60>     
+                        <md-list flex>
+                            <md-subheader class="center">Lista de ubicaciones</md-subheader>
+                            <md-list-item class="md-2-line" ng-click="null">
+                                <div class="md-list-item-text" layout="column">
+                                    <h3>Deposito A, Estante 3, Peldaño 4</h3>                            
+                                    <p>Deposito</p>
+                                </div>
+                            </md-list-item>
+                            <md-list-item class="md-2-line" ng-click="null">
+                                <div class="md-list-item-text" layout="column">
+                                    <h3>Vitrina afuera peldaño 4</h3>                            
+                                    <p>Tienda</p>
+                                </div>
+                            </md-list-item>                            
+                        </md-list> 
+                    </md-card>  
+                </md-content> 
+            </md-tab>
+        </md-tabs>
+    </md-dialog-content>    
+</md-dialog>
+<!--<md-dialog flex-gt-xs="50" aria-label="summaryCart"  ng-cloak>
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2>Nuevo Producto</h2>
@@ -11,7 +186,7 @@
     </md-toolbar>
     <form layout-padding flex  ng-submit="save()">
         <md-dialog-content flex layout="column">
-             <br/>
+            <br/>
             <div flex layout="row">
                 <md-input-container flex>
                     <md-select ng-model="product.category" placeholder="Categoria">
@@ -58,4 +233,4 @@
             </md-button>
         </md-dialog-actions>
     </form>
-</md-dialog>
+</md-dialog>-->

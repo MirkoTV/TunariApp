@@ -1,6 +1,6 @@
 body {
   /*background-image: url(../images/sandpaper.png);    */
-  background-color: rgb(229, 223, 223);
+  /*background-color: rgb(229, 223, 223);*/
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -120,14 +120,14 @@ input::-webkit-inner-spin-button {
 
 /*Angular Material*/
 
-ng-md-icon {
-  position: relative;
-  top: 5px; 
-}
-
 ng-md-icon.fab-button-icon {
   position: relative;
   top: 10px; 
+}
+
+.md-mini ng-md-icon.fab-button-icon {
+  position: relative;
+  top: 5px; 
 }
 
 md-content.md-default-theme, md-content.main-content {

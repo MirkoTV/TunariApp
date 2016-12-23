@@ -98,5 +98,19 @@ angular.module('tunariApp')
         $mdDialog.hide($scope.product);
     }
 
+    $scope.showPriceQuantityInput = function() {
+        $scope.isPriceQuantityInputShowed = true;
+    }
+
+    $scope.showPriceDescriptionInput = function() {
+        $scope.isPriceDescriptionInputShowed = true;
+    }
+
+
+    $scope.addPrice = function() {
+        $scope.isPriceQuantityInputShowed = false;
+        $scope.isPriceDescriptionInputShowed = false;
+    }
+
     $('#name').focus();
   }]);

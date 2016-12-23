@@ -25,7 +25,7 @@ angular.module('tunariApp')
         $location.path ("products/" + productId);
     }
 
-    $scope.$on('onBottomFabRightButtonClicked', function(event, args) {
+   /* $scope.$on('onBottomFabRightButtonClicked', function(event, args) {
         var useFullScreen = ($mdMedia('xs'));
 
         $mdDialog.show({
@@ -38,25 +38,34 @@ angular.module('tunariApp')
         }).then(function(product) {
             $scope.products.splice(0, 0, product);
         });
-    });
-
-   /* $('.grid').masonry({
-        // options
-        itemSelector: ['md-card', '.card'],
-        columnWidth: 'md-card',
-        percentPosition: true
     });*/
 
-   /* var $grid = $('.grid').imagesLoaded( function() {
-        console.log("done");
-        // init Masonry after all images have loaded
-        $grid.masonry({
-            // options
-            itemSelector: ['md-card', '.card'],
-            columnWidth: 'md-card',
-            percentPosition: true
-        });
-    });*/
+    $scope.openCreateProduct = function(event){
+        var useFullScreen = ($mdMedia('xs'));
+
+        $mdDialog.show({
+            controller: 'NewProductCtrl',
+            templateUrl: '../../views/modal/newProduct.html',
+            parent: angular.element(document.body),
+            targetEvent: event,
+            clickOutsideToClose:true,
+            fullscreen: useFullScreen
+        }).then(function(product) {
+            $scope.products.splice(0, 0, product);
+        }, function() {});
+    }
+
+    $scope.deleteProduct = function(event) {
+        var deleteProductModal = $mdDialog.confirm()
+          .title('Esta seguro de borrar este producto?')
+          .textContent('El producto seleccionado se borrara')
+          .ariaLabel('Delete product')
+          .targetEvent(event)
+          .ok('Borralo!')
+          .cancel('Cancelar');
+
+        $mdDialog.show(deleteProductModal);
+    }
 
     $scope.images = [
         "http://farm6.static.flickr.com/5065/5652087521_91498536d1_z.jpg",
@@ -66,15 +75,12 @@ angular.module('tunariApp')
         "http://www.mundopilot.com/wp-content/uploads/2015/08/Pantalla_afiche-Pilot-2015.jpg"
     ];
     angular.element(document).ready(function () {
-         // init Masonry
         var $grid = $('.grid').masonry({
-            // options
             itemSelector: ['md-card', '.card'],
             columnWidth: 'md-card',
             percentPosition: true
         });
 
-        // layout Masonry after each image loads
         $grid.imagesLoaded().progress( function() {
             $grid.masonry('layout');
         });
