@@ -11,13 +11,12 @@ angular.module('tunariApp')
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {
-            element.attr('src', Config.serverOptions.target + "/images/" + "notFound.gif");
-            attrs.$observe('ngSrc', function(ngSrc) {
-                $http.get(ngSrc).success(function(){
-                }).error(function() {
-                    element.attr('src', Config.serverOptions.target + "/images/" + "notFound.gif"); // set default image
-                });
-            });
+            
+            $http.get(attrs.checkImage).success(function(){
+                element.attr('src', attrs.checkImage);
+            }).error(function() {
+                element.attr('src', Config.serverOptions.target + "/images/" + "notFound.gif"); // set default image
+            });           
         }
     };
   }]);

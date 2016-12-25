@@ -8,17 +8,22 @@
  * Controller of the clientApp
  */
 angular.module('tunariApp')
-  .controller('ProductsCtrl', ['$scope', '$location', '$mdDialog', '$mdMedia', 'Products', 'ProductInfo',
-        function ($scope, $location, $mdDialog, $mdMedia, Products, ProductInfo) {
+  .controller('ProductsCtrl', ['$scope', '$location', '$mdDialog', '$mdMedia', 'Restangular', 'Config', 'Messages', 'Products', 'ProductInfo',
+        function ($scope, $location, $mdDialog, $mdMedia, Restangular, Config, Messages, Products, ProductInfo) {
     
     $scope.tags =[];
+    var useFullScreenForModals = ($mdMedia('xs'));
 
     Products.getList({}).then(function(products) {
         $scope.products = products;
     });
 
     $scope.getProductImageUrl = function(product, sufix) {
-        return  ProductInfo.getProductImageUrl(product, sufix);
+        return  ProductInfo.getProductImageUrl(product, sufix);       
+    }
+
+    $scope.getProductPrice = function(product) {
+        return _.find(product.prices, {type: 'Paquete'});     
     }
 
     $scope.editProduct = function(productId){
@@ -40,8 +45,8 @@ angular.module('tunariApp')
         });
     });*/
 
-    $scope.openCreateProduct = function(event){
-        var useFullScreen = ($mdMedia('xs'));
+    $scope.openCreateProductModal = function(event){    
+        var newProduct = Restangular.one('products');
 
         $mdDialog.show({
             controller: 'NewProductCtrl',
@@ -49,13 +54,52 @@ angular.module('tunariApp')
             parent: angular.element(document.body),
             targetEvent: event,
             clickOutsideToClose:true,
-            fullscreen: useFullScreen
-        }).then(function(product) {
-            $scope.products.splice(0, 0, product);
+            fullscreen: useFullScreenForModals,
+            locals : {
+                product : newProduct
+            }
+        }).then(function() {            
+            newProduct.save().then(function(productCreated){            
+                $scope.products.splice(0, 0, productCreated);
+                $scope.showToast(Messages.message002, productCreated.name);
+            }, function(response){            
+                manageCreateProductError(response);
+            });
         }, function() {});
     }
 
-    $scope.deleteProduct = function(event) {
+    function manageCreateProductError(response) {
+        if(response.code = 409) {    
+            console.log(_.template(Messages.message018)({product : $scope.product.name}));                
+        }
+        else {                
+            console.log(Messages.message019);
+        }
+    }
+
+    $scope.openEditProductModal = function(event, product) {
+        var productToEdit = Restangular.copy(product);
+
+        $mdDialog.show({
+            controller: 'NewProductCtrl',
+            templateUrl: '../../views/modal/newProduct.html',
+            parent: angular.element(document.body),
+            targetEvent: event,
+            clickOutsideToClose:true,
+            fullscreen: useFullScreenForModals,
+            locals : {
+                product : productToEdit
+            }
+        }).then(function() {
+            productToEdit.put().then(function(productEdited) {
+                var productIndex = _.indexOf($scope.products, product);
+                $scope.products.splice(productIndex, 1, productEdited)
+                $scope.showToast(Messages.message004, productEdited.name);
+            });                        
+        }, function() {});
+    }
+
+    $scope.deleteProduct = function(event, product) {
         var deleteProductModal = $mdDialog.confirm()
           .title('Esta seguro de borrar este producto?')
           .textContent('El producto seleccionado se borrara')
@@ -64,26 +108,11 @@ angular.module('tunariApp')
           .ok('Borralo!')
           .cancel('Cancelar');
 
-        $mdDialog.show(deleteProductModal);
+        $mdDialog.show(deleteProductModal).then(function(){
+            product.remove().then(function(){
+                _.pull($scope.products, product);
+                $scope.showToast(Messages.message006, product.name);
+            });
+        });
     }
-
-    $scope.images = [
-        "http://farm6.static.flickr.com/5065/5652087521_91498536d1_z.jpg",
-        "http://g02.a.alicdn.com/kf/HTB1ctgiIFXXXXcYXXXXq6xXFXXXh/-Brand-New-Original-Super-Quality-with-box-packing-Pilot-bp-s-multicolour-ballpoint-pen-bp.jpg",
-        "http://www.multipapel.com/sad/upload/descriptores/18058/FRIXION%20CLICKER_original.gif",        
-        "http://www.mundopilot.com/wp-content/uploads/2015/04/Lapiceros.png",
-        "http://www.mundopilot.com/wp-content/uploads/2015/08/Pantalla_afiche-Pilot-2015.jpg"
-    ];
-    angular.element(document).ready(function () {
-        var $grid = $('.grid').masonry({
-            itemSelector: ['md-card', '.card'],
-            columnWidth: 'md-card',
-            percentPosition: true
-        });
-
-        $grid.imagesLoaded().progress( function() {
-            $grid.masonry('layout');
-        });
-    });
-   
   }]);

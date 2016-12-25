@@ -56,6 +56,16 @@ var all = {
 			}
 		}
 	},
+	priceTypes: [
+		'Unidad',
+		'Paquete',
+		'Unidad Especial',
+		'Paquete Especial'
+	],
+	locationTypes: [
+		'Tienda',
+		'Deposito'		
+	],
 	invitationTypes: [
 		"Mementos",
 		"Virgenes",
