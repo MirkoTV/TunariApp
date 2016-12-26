@@ -10,8 +10,8 @@
         </div>
     </md-toolbar>
     <md-dialog-content >
-        <md-tabs md-dynamic-height md-border-bottom ng-hide="isLoading">
-            <md-tab label="General">
+        <md-tabs md-stretch-tabs="always" md-dynamic-height md-border-bottom >
+            <md-tab label="General" flex layout="row">                
                 <form layout-padding flex layout="row" layout-wrap ng-submit="save()">
                     <br/>
                         <div flex=100 layout="row">
@@ -109,7 +109,7 @@
                     </md-card>  
                 </md-content>                            
             </md-tab>
-            <md-tab label="Ubicaciones">
+            <md-tab flex label="Ubicaciones">
                 <md-content flex layout="row">       
                     <md-card md-whiteframe="4" layout-padding flex=40 flex-xs=50>   
                         <md-card-content>  
@@ -152,11 +152,15 @@
                     </md-card>  
                 </md-content> 
             </md-tab>
-        </md-tabs>
-        <div layout="row" layout-align="space-around" ng-show="isLoading">
-            <md-progress-circular md-mode="indeterminate" class="md-hue-2" md-diameter="80px">        
-            </md-progress-circular>
-        </div>
+            <md-tab flex label="Imagenes">
+                <div carousel flex>
+                    <a class="carousel-item" >
+                        <img check-image="{{getProductImageUrl(product, '-L')}}" class="product-image" 
+                                src="/images/defaultProduct.gif">
+                    </a>                   
+                </div>
+            </md-tab>            
+        </md-tabs>        
     </md-dialog-content>   
     <md-dialog-actions layout="row" ng-hide="isLoading">
         <md-button ng-click="cancel()" >

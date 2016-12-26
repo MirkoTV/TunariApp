@@ -11,6 +11,7 @@ angular.module('tunariApp')
   .controller('ProductsCtrl', ['$scope', '$location', '$mdDialog', '$mdMedia', 'Restangular', 'Config', 'Messages', 'Products', 'ProductInfo', 'SearchInfo',
         function ($scope, $location, $mdDialog, $mdMedia, Restangular, Config, Messages, Products, ProductInfo, SearchInfo) {
     
+    $scope.layout.title = 'Productos';
     var pagination = {
         page: 0,
         itemsPerPage:30
@@ -108,8 +109,7 @@ angular.module('tunariApp')
             templateUrl: '../../views/modal/productQuickSearch.html',
             parent: angular.element(document.body),
             targetEvent: event,
-            clickOutsideToClose:true,
-            fullscreen: useFullScreenForModals,
+            clickOutsideToClose:true            
         }).then(function(selectedTag) {
             $scope.searchTags=[selectedTag];
             $scope.search();

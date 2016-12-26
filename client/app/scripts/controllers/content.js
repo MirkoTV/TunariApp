@@ -25,6 +25,10 @@ angular.module('tunariApp')
         $mdSidenav(menuId).toggle();
     };    
 
+    $scope.closeSideNav = function(menuId) {
+        $mdSidenav(menuId).close()
+    }
+        
   	$scope.bottomFabRightButtonClick = function (ev) {
     	$scope.$broadcast('onBottomFabRightButtonClicked', {ev: ev});
   	}

@@ -9,10 +9,9 @@
  */
 angular.module('tunariApp')
   .controller('NewProductCtrl', 
-              ['$scope', '$location', '$mdDialog', 'Restangular', 'Settings', 'ServerData', 'Products', 'Notifier', 'Messages', 'product',
-             function ($scope, $location, $mdDialog, Restangular, Settings, ServerData, Products, Notifier, Messages, product) {
+              ['$scope', '$location', '$mdDialog', 'Restangular', 'Settings', 'ProductInfo', 'Products', 'Notifier', 'Messages', 'product',
+             function ($scope, $location, $mdDialog, Restangular, Settings, ProductInfo, Products, Notifier, Messages, product) {
 
-    $scope.serverData = ServerData;
     $scope.productNames = [];
     $scope.newPrice = {};
     $scope.newLocation = {};
@@ -109,6 +108,10 @@ angular.module('tunariApp')
 
     $scope.removeLocation = function(location) {
         _.pull($scope.product.locations, location);
+    }
+
+    $scope.getProductImageUrl = function(product, sufix) {
+        return  ProductInfo.getProductImageUrl(product, sufix);       
     }
 
     $('#name').focus();

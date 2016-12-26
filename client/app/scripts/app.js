@@ -31,6 +31,10 @@ angular
     $mdThemingProvider.theme('default')
       .primaryPalette('blue-grey')
       .accentPalette('pink');
+    
+    $mdThemingProvider.enableBrowserColor({
+      hue: '500'
+    });
 
     // Restangular global configurations
     RestangularProvider.setBaseUrl(Config.serverOptions.target + '/api');
