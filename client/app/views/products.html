@@ -41,11 +41,13 @@
                                 <div  flex class="card-title grey-text text-darken-4">
                                     {{product.name}}                                                                            
                                 </div>
-                                </br>
-                                <b>Ubicacion:</b> Deposito 2, Estante 1, Peldaño 4</br>
-                                <b>Tipo:</b> Memento</br>             
-                                <b>Cantidad:</b> 260 Unidades en deposito</br>  
-                                <b>Proveedor:</b> Tunari</br>
+                                <p>{{product.properties.type || product.category}}</p>
+                                </br>                                                                                                              
+                                <div ng-show="product.quantity"><b>Cantidad:</b> {{product.quantity}} Unidades en deposito</br></div>  
+                                <div ng-show="product.properties.size"><b>Tamaño:</b> {{product.properties.size}}</br></div>
+                                <div ng-repeat="location in product.locations">
+                                    <b>{{location.type}}:</b> {{location.value}}</br>
+                                </div>
                             </div>
                         </div> 
                     </div>                                       

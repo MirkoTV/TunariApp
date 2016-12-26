@@ -63,6 +63,9 @@ angular.module('tunariApp')
         $scope.product.tags.push($scope.product.provider); 
 
         $scope.$broadcast ('prepareSpecificPropertiesBeforeProductSaving');
+        $scope.product.tags = _.filter($scope.product.tags, function(tag) {
+            return !_.isEmpty(tag);
+        });
     }
 
     $scope.cancel = function () {

@@ -10,6 +10,7 @@
     <md-input-container flex=50>
         <label>Tamaño</label>
         <md-select ng-model="product.properties.size">
+            <md-option value=""></md-option>
             <md-option ng-repeat="size in invitationSizes" ng-value="size">
                 {{size}}
             </md-option>
@@ -18,6 +19,7 @@
     <md-input-container flex=50>
         <label>Genero</label>
         <md-select ng-model="product.properties.genre" placeholder="Genero">
+            <md-option value=""></md-option>
             <md-option ng-repeat="genre in invitationGenres" ng-value="genre">
                 {{genre}}
             </md-option>
