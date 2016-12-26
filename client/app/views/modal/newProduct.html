@@ -1,7 +1,7 @@
 <md-dialog flex=60 flex-xs=100>
      <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>Nuevo Producto</h2>
+            <h2>{{product.name || 'Nuevo Producto'}}</h2>
             <span flex></span>
             <md-button class="md-icon-button" ng-click="cancel()">
                 <ng-md-icon class="icon" style="fill: #fff" icon="close" size="20" aria-label="call">
@@ -12,35 +12,45 @@
     <md-dialog-content >
         <md-tabs md-dynamic-height md-border-bottom ng-hide="isLoading">
             <md-tab label="General">
-                <form layout-padding flex  ng-submit="save()">
+                <form layout-padding flex layout="row" layout-wrap ng-submit="save()">
                     <br/>
-                    <div flex layout="row">
-                        <md-input-container flex>
-                            <md-select ng-model="product.category" placeholder="Categoria">
-                                <md-option ng-repeat="category in categories" ng-value="category.name">
-                                    {{category.name}}
-                                </md-option>
-                            </md-select>
-                        </md-input-container>
-                        <md-input-container flex ng-if="product.category === 'Invitaciones'">
-                            <md-select ng-model="product.properties.type" placeholder="Tipo">
-                                <md-option ng-repeat="type in invitationTypes" ng-value="type">
-                                    {{type}}
-                                </md-option>
-                            </md-select>
-                        </md-input-container>
-                    </div>
-                    <div flex layout="column">
-                        <md-input-container flex>
-                            <label>Nombre</label>
-                            <input ng-model="product.name" type="text" autocomplete="off"/>                                                            
-                        </md-input-container>
-                        <md-chips flex
+                        <div flex=100 layout="row">
+                            <md-input-container flex=50 style="margin-bottom:0px">
+                                <label>Categoria</label>
+                                <md-select ng-model="product.category" ng-change="updateView()" placeholder="Categoria">
+                                    <md-option ng-repeat="category in categories" ng-value="category.name">
+                                        {{category.name}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                            <md-input-container flex=50 style="margin-bottom:0px">
+                                <label>Nombre</label>
+                                <input ng-model="product.name" type="text" autocomplete="off"/>                                                            
+                            </md-input-container>            
+                        </div>                
+                        
+                        <div class="reveal-animation" flex=100 ng-include="specificPropertiesView"></div> 
+
+                        <div flex=100 layout="row">
+                            <md-input-container flex=50 style="margin-bottom:0px">
+                                <label>Cantidad en deposito</label>
+                                <input ng-model="product.quantity" type="number" autocomplete="off"/>                                                            
+                            </md-input-container>  
+                            <md-input-container flex=50 style="margin-bottom:0px">
+                                <label>Proveedor</label>
+                                <md-select ng-model="product.provider" placeholder="Proveedor">
+                                    <md-option ng-repeat="provider in productProviders" ng-value="provider">
+                                        {{provider}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>                                      
+                        </div> 
+
+                        <md-chips flex=100
                             ng-model="product.tags"
                             placeholder="Agrega etiquetas!"                            
-                            secondary-placeholder="Escribe algo mas!">
-                        </md-chips>  
-                    </div>
+                            secondary-placeholder="Etiquetas +">
+                        </md-chips>                    
                 </form>
             </md-tab>
             <md-tab flex label="Precios" >
@@ -85,7 +95,7 @@
                         <md-list flex>
                             <md-subheader class="center">Lista de precios</md-subheader>
                             <md-list-item class="md-2-line" ng-click="null" ng-repeat="price in product.prices | orderBy:'value'">
-                                <div flex=20 ng-src="" class="md-avatar">
+                                <div flex=30 ng-src="" class="md-avatar">
                                     {{price.value}} Bs
                                 </div>
                                 <div class="md-list-item-text" layout="column">

@@ -22,13 +22,14 @@ var all = {
     },
 	productCategories: [
 		{
-			name: "Invitaciones",
-			view: "views/invitationDetails.html"
+			name: "Escritorio",
+			//view: "views/desktopMaterialDetails.html"
+			view: ""
 		},
 		{
-			name: "Escritorio",
-			view: "views/desktopMaterialDetails.html"
-		}
+			name: "Invitaciones",
+			view: "views/invitationDetails.html"
+		}		
 	],
 	defaultProductProperties: {
 		Default: {
@@ -56,6 +57,9 @@ var all = {
 			}
 		}
 	},
+	productProviders: [
+		"Tunari"
+	],
 	priceTypes: [
 		'Unidad',
 		'Paquete',

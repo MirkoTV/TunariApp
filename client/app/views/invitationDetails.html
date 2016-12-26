@@ -1,4 +1,30 @@
-<div ng-controller="InvitationDetailsCtrl">
+<div flex=100 layout="row" layout-wrap ng-controller="InvitationDetailsCtrl">    
+    <md-input-container style="margin-top:0px" flex=100>
+        <label>Tipo</label>
+        <md-select ng-model="$parent.product.properties.type" ng-change="updatePropertiesOptions()" placeholder="Tipo">
+            <md-option ng-repeat="type in invitationTypes" ng-value="type">
+                {{type}}
+            </md-option>
+        </md-select>
+    </md-input-container>    
+    <md-input-container flex=50>
+        <label>Tamaño</label>
+        <md-select ng-model="product.properties.size">
+            <md-option ng-repeat="size in invitationSizes" ng-value="size">
+                {{size}}
+            </md-option>
+        </md-select>
+    </md-input-container>
+    <md-input-container flex=50>
+        <label>Genero</label>
+        <md-select ng-model="product.properties.genre" placeholder="Genero">
+            <md-option ng-repeat="genre in invitationGenres" ng-value="genre">
+                {{genre}}
+            </md-option>
+        </md-select>
+    </md-input-container>
+</div>
+<!--<div ng-controller="InvitationDetailsCtrl">
 	<div class="row">
         <div class="col-xs-12 col-md-4">
             <div class="thumbnail">
@@ -264,4 +290,5 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
+
