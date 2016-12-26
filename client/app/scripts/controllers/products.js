@@ -19,6 +19,7 @@ angular.module('tunariApp')
     var useFullScreenForModals = ($mdMedia('xs'));     
     $scope.searchTags =[];
     $scope.products = [];
+    $scope.selectedPriceType = ProductInfo.getSelectedPriceType() || 'Unidad';
     
     $scope.search = function() {
         $scope.products = [];
@@ -44,8 +45,8 @@ angular.module('tunariApp')
         return  ProductInfo.getProductImageUrl(product, sufix);       
     }
 
-    $scope.getProductPrice = function(product) {
-        return _.find(product.prices, {type: 'Paquete'});     
+    $scope.hasPriceToShow = function(product) {
+        return _.some(product.prices, { type:  $scope.selectedPriceType });     
     }
 
     $scope.openCreateProductModal = function(event){    
@@ -114,6 +115,20 @@ angular.module('tunariApp')
             $scope.searchTags=[selectedTag];
             $scope.search();
         }, function() {});        
+    }
+
+    $scope.openProductsSettings = function() {
+
+        $mdDialog.show({
+            controller: 'ProductsViewSettingsCtrl',
+            templateUrl: '../../views/modal/productsViewSettings.html',
+            parent: angular.element(document.body),
+            targetEvent: event,
+            clickOutsideToClose:true            
+        }).then(function(selectedPriceType) {
+           ProductInfo.setSelectedPriceType(selectedPriceType);
+           $scope.selectedPriceType = selectedPriceType;
+        }, function() {});  
     }
 
     $scope.deleteProduct = function(event, product) {

@@ -26,9 +26,9 @@
                         <div class="card-content">
                             <span class="card-title activator grey-text text-darken-4">{{product.name}}</span>
                         </div>
-                        <div class="card-action" ng-init="price = getProductPrice(product)">
-                            <p ng-if="price">{{price.value}} Bs por {{price.type}}</p>
-                            <p ng-if="!price" style="color:#a9b9c1">No hay precio para mostrar</p>
+                        <div class="card-action">
+                            <p ng-repeat="price in product.prices" ng-show="price.type == selectedPriceType">{{price.value}} Bs por {{price.type}}</p>                                                        
+                            <p ng-hide="hasPriceToShow(product)" style="color:#a9b9c1">No hay precio para mostrar</p>
                         </div>
 
                         <div class="card-reveal">
@@ -71,6 +71,10 @@
     </md-button>
     <md-button ng-click="openCreateProductModal($event)" class="md-fab md-fab-bottom-right" aria-label="createProduct">          
         <ng-md-icon style="fill: #fff" icon="add_circle_outline" class="fab-button-icon" size="40">
+        </ng-md-icon>  
+    </md-button>
+    <md-button ng-click="openProductsSettings($event)" class="md-fab md-fab-bottom-right" style="bottom: 160px" aria-label="productSettings">          
+        <ng-md-icon style="fill: #fff" icon="settings" class="fab-button-icon" size="40">
         </ng-md-icon>  
     </md-button>
 

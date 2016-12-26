@@ -12,11 +12,13 @@ angular.module('tunariApp')
 
 
     var imgServer = "",
+        selectedPriceType = "",
         quickSearchs = [];
 
     Settings.getList().then(function(settings){
         imgServer = _.find(settings, {'key': 'imgServer'}).value;
         quickSearchs = _.find(settings, {'key': 'quickSearchs'}).value;
+        selectedPriceType = _.find(settings, {'key': 'priceTypes'}).value[0];
     });
 
     this.getProductImageUrl = function(product, suffix) {
@@ -42,5 +44,13 @@ angular.module('tunariApp')
 
     this.getProductQuickSearchs = function() {
         return quickSearchs;
+    }
+
+    this.setSelectedPriceType = function(newSelectedPriceType) {
+        selectedPriceType = newSelectedPriceType;
+    }
+
+    this.getSelectedPriceType = function() {
+        return selectedPriceType;
     }
 }]);
