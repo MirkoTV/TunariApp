@@ -8,15 +8,36 @@
  * Controller of the clientApp
  */
 angular.module('tunariApp')
-  .controller('ProductsCtrl', ['$scope', '$location', '$mdDialog', '$mdMedia', 'Restangular', 'Config', 'Messages', 'Products', 'ProductInfo',
-        function ($scope, $location, $mdDialog, $mdMedia, Restangular, Config, Messages, Products, ProductInfo) {
+  .controller('ProductsCtrl', ['$scope', '$location', '$mdDialog', '$mdMedia', 'Restangular', 'Config', 'Messages', 'Products', 'ProductInfo', 'SearchInfo',
+        function ($scope, $location, $mdDialog, $mdMedia, Restangular, Config, Messages, Products, ProductInfo, SearchInfo) {
     
-    $scope.tags =[];
-    var useFullScreenForModals = ($mdMedia('xs'));
+    var pagination = {
+        page: 0,
+        itemsPerPage:30
+    };  
+    var useFullScreenForModals = ($mdMedia('xs'));     
+    $scope.searchTags =[];
+    $scope.products = [];
+    
+    $scope.search = function() {
+        $scope.products = [];
+        pagination.page = 0;
+        $scope.searchMore();
+    }
 
-    Products.getList({}).then(function(products) {
-        $scope.products = products;
-    });
+    $scope.searchMore = function() {
+        $scope.isLoading = true;
+        var query = _.isEmpty($scope.searchTags) ? {} : {tags: $scope.searchTags.join(' ')};
+        query.page = ++pagination.page;
+        query.queryLimit = pagination.itemsPerPage;
+
+        Products.getList(query).then(function(products) {
+            $scope.products = _.concat($scope.products, products);
+            $scope.totalProducts = products.meta.count;   
+            SearchInfo.setTags($scope.searchTags);
+            $scope.isLoading = false;
+        });
+    }     
 
     $scope.getProductImageUrl = function(product, sufix) {
         return  ProductInfo.getProductImageUrl(product, sufix);       
@@ -25,25 +46,6 @@ angular.module('tunariApp')
     $scope.getProductPrice = function(product) {
         return _.find(product.prices, {type: 'Paquete'});     
     }
-
-    $scope.editProduct = function(productId){
-        $location.path ("products/" + productId);
-    }
-
-   /* $scope.$on('onBottomFabRightButtonClicked', function(event, args) {
-        var useFullScreen = ($mdMedia('xs'));
-
-        $mdDialog.show({
-            controller: 'NewProductCtrl',
-            templateUrl: '../../views/modal/newProduct.html',
-            parent: angular.element(document.body),
-            targetEvent: args.ev,
-            clickOutsideToClose:true,
-            fullscreen: useFullScreen
-        }).then(function(product) {
-            $scope.products.splice(0, 0, product);
-        });
-    });*/
 
     $scope.openCreateProductModal = function(event){    
         var newProduct = Restangular.one('products');
@@ -115,4 +117,6 @@ angular.module('tunariApp')
             });
         });
     }
+
+    $scope.search();
   }]);
