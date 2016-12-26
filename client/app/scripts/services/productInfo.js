@@ -11,10 +11,12 @@ angular.module('tunariApp')
   .service('ProductInfo', ["Settings", "Config", function (Settings, Config) {
 
 
-    var imgServer = "";
+    var imgServer = "",
+        quickSearchs = [];
 
     Settings.getList().then(function(settings){
         imgServer = _.find(settings, {'key': 'imgServer'}).value;
+        quickSearchs = _.find(settings, {'key': 'quickSearchs'}).value;
     });
 
     this.getProductImageUrl = function(product, suffix) {
@@ -32,5 +34,13 @@ angular.module('tunariApp')
 
     this.setImageServer = function(newImageServer) {
         imgServer = newImageServer;
+    }
+
+    this.setProductQuickSearchs = function(newQuickSearchs) {
+        quickSearchs = newQuickSearchs;
+    }
+
+    this.getProductQuickSearchs = function() {
+        return quickSearchs;
     }
 }]);

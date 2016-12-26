@@ -101,6 +101,21 @@ angular.module('tunariApp')
         }, function() {});
     }
 
+    $scope.openQuickSearchsModal = function() {
+
+        $mdDialog.show({
+            controller: 'ProductQuickSearchCtrl',
+            templateUrl: '../../views/modal/productQuickSearch.html',
+            parent: angular.element(document.body),
+            targetEvent: event,
+            clickOutsideToClose:true,
+            fullscreen: useFullScreenForModals,
+        }).then(function(selectedTag) {
+            $scope.searchTags=[selectedTag];
+            $scope.search();
+        }, function() {});        
+    }
+
     $scope.deleteProduct = function(event, product) {
         var deleteProductModal = $mdDialog.confirm()
           .title('Esta seguro de borrar este producto?')

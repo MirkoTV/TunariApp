@@ -6,9 +6,7 @@ var settingSchema = new Schema({
     key : {
         type: String
     },
-    value : {
-        type: String
-    }
+    value : {}
 });
 
 // the schema is useless so far

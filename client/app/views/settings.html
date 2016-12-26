@@ -2,6 +2,15 @@
 	<md-card flex="80" flex-gt-sm="50">
         <form ng-submit="saveSettings()">
             <md-list ng-cloack>
+                <md-subheader>Busquedas Rapidas</md-subheader>
+                <md-list-item>
+                    <md-chips flex 
+                    ng-model="quickSearchs.value"
+                    placeholder="Agrega Etiqueta!"
+                    secondary-placeholder="Etiquetas+">                        
+                    </md-chips>
+                </md-list-item>
+                </br>
                 <md-subheader>Configuraciones Avanzadas</md-subheader>
                 <md-list-item>
                     <md-input-container class="md-block" flex>

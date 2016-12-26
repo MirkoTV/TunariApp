@@ -8,28 +8,39 @@
  * Controller of the clientApp
  */
 angular.module('tunariApp')
-  .controller('SettingsCtrl', ['$scope', 'Settings', 'ProductInfo',
-        function ($scope, Settings, ProductInfo) {
+  .controller('SettingsCtrl', ['$scope', '$location', 'Settings', 'ProductInfo',
+        function ($scope, $location, Settings, ProductInfo) {
 
     $scope.layout.title = 'Configuraciones';
 
-	Settings.getList().then(function(settings){
-        $scope.imgServer = _.find(settings, {'key': 'imgServer'});     
+    Settings.getList().then(function(settings){
+          $scope.imgServer = _.find(settings, {'key': 'imgServer'});    
+          $scope.quickSearchs = _.find(settings, {'key': 'quickSearchs'});
+          console.log($scope.quickSearchs);
 
-        if(!$scope.imgServer) {
-        	Settings.post({key:"imgServer", value:""}).then(function(newSetting){
-        		$scope.imgServer = newSetting;
-        	});
-        }
-	});
+          if(!$scope.imgServer) {
+            Settings.post({key:"imgServer", value:""}).then(function(newSetting){
+              $scope.imgServer = newSetting;
+            });
+          }
 
-	$scope.saveSettings = function() {
+          if(!$scope.quickSearchs) {
+            Settings.post({key:"quickSearchs", value:[]}).then(function(newSetting){
+              $scope.quickSearchs = newSetting;
+            });
+          }
+    });
 
-		$scope.imgServer.save().then(function(){
-            ProductInfo.setImageServer($scope.imgServer.value);
-            $scope.$parent.showToast('Nuevo servidor de imagenes!', $scope.imgServer.value);
-        });
-	}
+    $scope.saveSettings = function() {
+      $scope.imgServer.save().then(function(){
+          ProductInfo.setImageServer($scope.imgServer.value);
+      });
+      $scope.quickSearchs.save().then(function(){
+          ProductInfo.setProductQuickSearchs($scope.quickSearchs.value);
+      });
+
+      $location.path('/products');
+    }
      
   }]);
 	
